@@ -1,0 +1,55 @@
+﻿@model ECommerce.Areas.Admin.Models.AddProductViewModel
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>ALT KATEGORİ EKLE</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" class="waves-effect waves-block">Action</a></li>
+                            <li><a href="javascript:void(0);" class="waves-effect waves-block">Another action</a></li>
+                            <li><a href="javascript:void(0);" class="waves-effect waves-block">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="body">
+                    <form id="form_advanced_validation" method="POST" novalidate="novalidate">
+                        <label class="form-label" for="CategoryId">Ana Kategori</label>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                @Html.DropDownListFor(x => x.CategoryId, Model.Categorylist, "Ana Kategoriyi Seçiniz", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                <label class="form-label">Alt Kategori Adı</label>
+                            </div>
+                            <div class="help-info"></div>
+                        </div>
+                        <button class="btn btn-primary waves-effect" type="submit">Kaydet!</button>
+                    </form>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

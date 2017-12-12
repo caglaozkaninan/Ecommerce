@@ -1,0 +1,68 @@
+﻿@model ECommerce.Models.ProductViewModel
+@{
+    ViewBag.Title = "Detail";
+}
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            @Html.Partial("~/Views/Shared/_Basket.cshtml",Model.Basket)
+            @Html.Partial("~/Views/Shared/_Category.cshtml",Model.categories)
+            @Html.Partial("~/Views/Shared/_Login.cshtml")
+        </div>
+        <div class="span9">
+         @if (TempData.ContainsKey("Message"))
+         {
+            <div class="row">
+                <div class="span9">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"].ToString()
+                    </div>
+                </div>
+            </div>
+         }
+            <div class="row">
+                <div class="span5">
+                    <img class="media-object" src="@Model.product.picturebig" alt="470x310" data-src="holder.js/470x310" style="width: 470px; height: 310px;">
+                </div>
+
+                <div class="span4">
+                    <h4>@Model.product.Brand.name and @Model.product.Category.name</h4>
+                    <h5>@Model.product.name</h5>
+                    <p>@Model.product.specification</p>
+                    <h4>@Model.product.price</h4>
+                    @using (Html.BeginForm("AddToBasket", "Basket", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.Hidden("ProductId",Model.product.id)
+
+                        <label>
+                            <input type="number" id="ProductQuantity" name="ProductQuantity" value="1" class="span1">&nbsp;Qty
+                        </label>
+                        <button type="submit" class="btn btn-primary">Add to Chart</button>
+                    }
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <ul class="nav nav-tabs">Description                    
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="description">
+                            <p>
+                                @Model.product.specification
+                            </p>
+                        </div>
+                        <div class="tab-pane" id="reviews">...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

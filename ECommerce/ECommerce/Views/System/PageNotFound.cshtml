@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="/Content/Site/js/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Content/Site/js/bootstrap/css/bootstrap-responsive.min.css" />
+
+    <!-- Includes FontAwesome -->
+    <link rel="stylesheet" href="/Content/Site/css/font-awesome/css/font-awesome.min.css" />
+    <!-- Css -->
+    <link rel="stylesheet" href="/Content/Site/css/style.css" />
+
+    <style>
+        .error-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        .error-actions {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+            .error-actions .btn {
+                margin-right: 10px;
+            }
+    </style>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>PageNotFound</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="error-template">
+                <h1>Oops!</h1>
+                <h2>404 Not Found</h2>
+                <div class="error-details">
+                    Sorry, an error has occured, Requested page not found!<br>
+                    <?php echo CHtml::encode($message); ?>
+                </div>
+                <div class="error-actions">
+                    <a href="<?php echo Yii::app()->request->baseUrl; ?>" class="btn btn-primary">
+                        <i class="icon-home icon-white"></i> Take Me Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

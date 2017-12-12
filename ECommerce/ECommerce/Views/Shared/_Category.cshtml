@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ECommerce.Dal.Entities.Category>
+<div class="well">
+    <ul class="nav nav-list">
+     @foreach (var item in Model)
+     {
+        <li class="nav-header">@item.name</li>
+         foreach (var subcategory in item.Subcategories)
+         {
+            <li>
+                <a href="@Url.Action("Index","Product",new {subcategoryId=subcategory.id })">@subcategory.name</a>
+            </li>
+         }
+     }
+    </ul>
+</div>

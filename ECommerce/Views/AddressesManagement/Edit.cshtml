@@ -1,0 +1,63 @@
+﻿@model ECommerce.Models.AddressViewModel
+<div class="container">
+    <div class="row">
+
+        @using (Html.BeginRouteForm("UserAddressEditPost", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+            @Html.HiddenFor(x => x.AddressId)
+
+            <fieldset>
+                <!-- Address form -->
+                <h2>Adres Güncelle</h2>
+
+                <!-- full-name input-->
+                <div class="control-group">
+                    <label class="control-label">Full Name</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(x => x.name, new { @class = "input-xlarge", placeholder = "full name" })
+                    </div>
+                </div>
+                <!-- address-line1 input-->
+                <div class="control-group">
+                    <label class="control-label">Address Line 1</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(x => x.address1, new { @class = "input-xlarge", placeholder = "address line 1" })
+                    </div>
+                </div>
+                <!-- address-line2 input-->
+                <div class="control-group">
+                    <label class="control-label">Address Line 2</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(x => x.address2, new { @class = "input-xlarge", placeholder = "address line 2" })
+                    </div>
+                </div>
+                <!-- city input-->
+                <div class="control-group">
+                    <label class="control-label">City / Town</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(x => x.city, new { @class = "input-xlarge", placeholder = "city" })
+                    </div>
+                </div>
+                <!-- postal-code input-->
+                <div class="control-group">
+                    <label class="control-label">Zip / Postal Code</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(x => x.postcode, new { @class = "input-xlarge", placeholder = "zip or postal code" })
+                    </div>
+                </div>
+                <!-- country select -->
+                <div class="control-group">
+                    <label class="control-label">Country</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.countryid, Model.Countrylist, new { @class = "input-xlarge" })
+                    </div>
+                </div>
+                <button class="btn btn-primary waves-effect" type="submit">Kaydet</button>
+            </fieldset>
+        }
+    </div>
+</div>
+

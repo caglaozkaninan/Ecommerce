@@ -1,0 +1,49 @@
+﻿@model ECommerce.Models.ProductListViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            @Html.Partial("~/Views/Shared/_Basket.cshtml", Model.Basket)
+            @Html.Partial("~/Views/Shared/_Category.cshtml", Model.categories)
+            @Html.Partial("~/Views/Shared/_Login.cshtml")
+        </div>
+        <div class="span9">
+            @if (Model.product.Count == 0)
+            {
+                <h3>Bu Kategoride ürün bulunamamıştır.</h3>
+            }
+
+            <ul class="thumbnails">
+
+                @foreach (var item in Model.product)
+                {
+                    <li class="span3">
+                        <div class="thumbnail">
+                            <img src="@item.picturebig" alt="">
+                            <div class="caption">
+                                <h4>@item.name</h4>
+                                <p>@item.price</p>
+                                <a class="btn btn-primary" href="@Url.Action("Detail","Product",new {productId=item.id })">View</a>
+                                <a class="btn btn-success" href="#">Add to Cart</a>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+            @*<div class="pagination">
+                    <ul>
+                        <li class"disabled"><span>Prev</span></li>
+                        <li class"disabled"><span>1</span></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul>
+                </div>*@
+        </div>
+    </div>
+</div>

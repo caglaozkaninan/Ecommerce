@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ECommerce.Dal.Entities.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Üye Listesi
+
+                </h2>
+            </div>
+            <div class="body table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Üye İsmi</th>
+                            <th>Üye SoyAdı</th>
+                            <th>Telefon</th>
+                            <th>Mail</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.name</td>
+                                <td>@item.surname </td>
+                                <td>@item.phone </td>
+                                <td>@item.mail </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

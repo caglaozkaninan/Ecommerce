@@ -1,0 +1,111 @@
+﻿
+@model  ECommerce.Areas.Admin.Models.AddProductViewModel
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>ADVANCED VALIDATION</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" class="waves-effect waves-block">Action</a></li>
+                            <li><a href="javascript:void(0);" class="waves-effect waves-block">Another action</a></li>
+                            <li><a href="javascript:void(0);" class="waves-effect waves-block">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm("Edit", "Product", new { area = "admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+
+                    @Html.HiddenFor(x=>x.ProductId)
+
+                    <label class="form-label" for="Name">Ürün Adı</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <label class="form-label" for="Specification">Ürün Açıklaması</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.TextAreaFor(x => x.Specification, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <label class="form-label" for="Price">Ürün Fiyatı</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <label class="form-label" for="StockQuantity">Ürün Stok Adeti</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.TextBoxFor(x => x.StockQuantity, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <label class="form-label" for="BrandId">Ürün Markası</label>
+
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.DropDownListFor(x => x.BrandId, Model.Brandlist, "ürün Markası Seçiniz", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <label class="form-label" for="CategoryId">Ürün Kategori</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.DropDownListFor(x => x.CategoryId, Model.Categorylist, "Ürün Kategorisi Seçiniz", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <label class="form-label" for="BigPicture">Ürün Büyük Resim</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.TextBoxFor(x => x.BigPicture, new { type = "file" })
+                        </div>
+                    </div>
+
+                    <label class="form-label" for="SmallPicture">Ürün Küçük Resim</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.TextBoxFor(x => x.SmallPicture, new { type = "file" })
+                        </div>
+                    </div>
+                    <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script>
+        $('#BrandId').selectpicker({
+            size: 4
+        });
+
+        $('#CategoryId').selectpicker({
+            size: 4
+        });
+
+    </script>
+
+}

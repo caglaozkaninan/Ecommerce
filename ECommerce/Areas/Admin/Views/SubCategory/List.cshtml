@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ECommerce.Dal.Entities.Subcategory>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        @if (TempData.ContainsKey("Status") && (bool)TempData["Status"])
+        {
+            <div class="alert bg-green alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                @TempData["Message"].ToString()
+            </div>
+        }
+        else if (TempData.ContainsKey("Status") && (bool)TempData["Status"] == false)
+        {
+            <div class="alert bg-red alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                @TempData["Message"].ToString()
+            </div>
+        }
+        <div class="card">
+            <div class="header">
+                <h2>
+                     Alt Kategori Listesi
+                </h2>
+            </div>
+            <div class="body table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kategori Adı</th>
+                            <th>Alt Kategori Adı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.Category.name</td>
+                                <td>@item.name</td>
+                                <td>
+                                    <a href="@Url.Action("Delete","SubCategory",new { area = "Admin", subcategoryId = item.id })" onclick="return confirm('@item.name isimli ürünü silmek istediğinizden emin misiniz?')" class="btn btn-danger waves-effect">Alt Kategoriyi Sil</a>
+                                </td>
+                            </tr>
+
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

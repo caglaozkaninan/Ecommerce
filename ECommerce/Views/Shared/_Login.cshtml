@@ -1,0 +1,30 @@
+﻿<div class="well">
+
+    @if (string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name) == false)
+    {
+        <h3>@HttpContext.Current.User.Identity.Name</h3>
+        <a href="@Url.RouteUrl("UserAddressList")">Adres Listeleme</a><br />
+        <a href="@Url.RouteUrl("UserNewAddress")">Yeni Adres Ekle</a><br />
+        <a href="@Url.Action("LogOff","Login",new { area = "Admin" , returnUrl="/Home/Index"})">Çıkış Yap</a>
+        
+        
+    }
+    else
+    {
+        using (Html.BeginForm("Login", "Login", new { Area = "Admin" }, FormMethod.Post, new { @class = "form login-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h2>Oturum Aç</h2>
+            <div>
+                <label>Kullanıcı Adı</label>
+                <input id="Username" name="Username" type="text" />
+                <label>Şifre</label>
+                <input id="Password" name="Password" type="password" />               
+                <br /><br />
+                <button type="submit" class="btn btn-success">Giriş</button>
+            </div>
+            <br />
+            <a href="@Url.Action("Register", "User")">Kaydol</a>
+        }
+    }
+</div>

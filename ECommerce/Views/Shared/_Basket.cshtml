@@ -1,0 +1,28 @@
+﻿@model ECommerce.Dal.Entities.Basket
+@if (Model.Basket_items != null)
+{
+    <div class="well">
+        <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="icon-shopping-cart"></i>
+                @Model.Basket_items.Count Ürün - $@Model.Basket_items.Sum(x => x.price)
+                <b class="caret"></b>
+            </a>
+            <div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
+
+                @foreach (var item in Model.Basket_items)
+                {
+                    <p>@item.Product.name x @item.quantity <span class="pull-right">@item.price</span></p>
+                }
+
+                <a href="@Url.Action("Checkout","Basket",new {basketid=Model.id })" class="btn btn-primary">Satın Al</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="well">
+        Sepette Ürün yok.
+    </div>
+}

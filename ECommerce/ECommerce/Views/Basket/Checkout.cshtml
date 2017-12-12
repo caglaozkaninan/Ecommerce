@@ -1,0 +1,141 @@
+﻿@model ECommerce.Models.CheckOutViewModel
+<div class="container">
+    <div class="row">
+        @using (Html.BeginForm("CheckOut", "Basket", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.BasketId)
+            @Html.HiddenFor(x => x.UserId)
+
+            <div class="span12">
+                <h2>Checkout Process</h2>
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" @*data-toggle="collapse" data-parent="#accordion2"*@ href="#collapseOne">
+                                STEP 1: CHECKOUT OPTIONS
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                @(Model.UserDetail.name + " " + Model.UserDetail.surname)
+                                <br />
+                                @Model.UserDetail.mail
+                                <br />
+                                @Model.UserDetail.phone
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" @*data-toggle="collapse" data-parent="#accordion2"*@ href="#collapseTwo">
+                                STEP 2: ACCOUNT & BILLING DETAILS
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                @Html.DropDownListFor(x => x.SelectedBillingAddressId, Model.Addresses)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" @*data-toggle="collapse" data-parent="#accordion2"*@ href="#collapseThree">
+                                STEP 3: SHIPPING DETAILS
+                            </a>
+                        </div>
+                        <div id="collapseThree" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                @Html.DropDownListFor(x => x.SelectedShippingAddressId, Model.Addresses)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" @*data-toggle="collapse" data-parent="#accordion2"*@ href="#collapseFour">
+                                STEP 4: SHIPPING METHOD
+                            </a>
+                        </div>
+                        <div id="collapseFour" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                <select name="SelectedShippingMethodId" id="SelectedShippingMethodId">
+                                    @foreach (var item in Model.ShippingMethods)
+                                    {
+                                        <option value="@item.id" data-price="@item.price">@(item.shippingmethodname + string.Format("(Ücret: {0})", item.price) )</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" @*data-toggle="collapse" data-parent="#accordion2"*@ href="#collapseFive">
+                                STEP 5: PAYMENT METHOD
+                            </a>
+                        </div>
+                        <div id="collapseFive" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                @Html.DropDownListFor(x => x.SelectedPaymentMethodId, Model.PaymentMethods)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" @*data-toggle="collapse" data-parent="#accordion2"*@ href="#collapseSix">
+                                STEP 6: CONFIRM ORDER
+                            </a>
+                        </div>
+                        <div id="collapseSix" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>Qty</th>
+                                            <th>Unit Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.BasketItems)
+                                        {
+                                            <tr>
+                                                <td>@item.Product.name</td>
+                                                <td>@item.quantity</td>
+                                                <td>@item.Product.price</td>
+                                                <td>@item.price</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <dl class="dl-horizontal pull-right">
+                                    <dt>Sub-total:</dt>
+                                    <dd data-price="@Model.BasketItems.Sum(x => x.price)" id="subtotal">@Model.BasketItems.Sum(x => x.price)</dd>
+                                    <dt>Shipping Cost:</dt>
+                                    <dd id="shippingcost">$0.01</dd>
+                                    <dt>Total:</dt>
+                                    <dd id="totalprice">$1000.00</dd>
+                                </dl>
+                                <div class="clearfix"></div>
+                                <button type="submit" href="#" class="btn btn-success pull-right">Confirm Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#SelectedShippingMethodId").on("change", function () {
+            var price = $(this).find(':selected').data('price').replace(',', '.').replace(' ', '')
+            $("#shippingcost").html(price);
+            var secprice = $("#subtotal").data("price").replace(',', '.').replace(' ', '');
+            var totalPrice = parseFloat(price) + parseFloat(secprice);
+            $("#totalprice").html(totalPrice.toFixed(4));
+        });
+    </script>
+}
